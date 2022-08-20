@@ -2,4 +2,5 @@ body, html {
     margin: auto;
     padding:0;
     overflow-y: hidden;
+    background-color: darkgray;
 }

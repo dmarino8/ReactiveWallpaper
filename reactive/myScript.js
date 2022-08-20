@@ -1,25 +1,25 @@
-let leftAnimation = new Image();
+let animation = new Image();
 
 var stop = true;
 var frameCount = 0;
 var fps, fpsInterval, startTime, now, then, elapsed;
 
 const sprite = {
-    x: 500,
+    x: 1000,
     y: 400,
     cx: 500,
     cy: 400,
-    dir: 0, //dir 0 = left, dir 1 = right
-    speed: 3,
+    dir: 4, //dir 0 = left, dir 1 = right
+    speed: 1,
     width: 30,
     height: 30,
     xdone: false,
-    image: leftAnimation
+    image: animation
 }
 
 window.onload = function () {
 
-    leftAnimation.src = 'sprite-greenS-blueP-leftF4.png'
+    animation.src = 'sprite-sword1.png'
 
     var canvas = document.getElementById("canvas"),
         ctx = canvas.getContext("2d"),
@@ -40,14 +40,14 @@ window.onload = function () {
         }
         //ctx.beginPath();
 
-        ctx.drawImage(leftAnimation, sprite.x, sprite.y);
+        ctx.drawImage(animation, sprite.x, sprite.y);
 
         //ctx.arc(sprite.x, sprite.y, 10, 0, Math.PI * 2);
         //ctx.fill();
         //
     }
 
-    startAnimating(15);
+    startAnimating(10);
     function startAnimating(fps) {
         fpsInterval = 1000 / fps;
         then = Date.now();
@@ -177,6 +177,38 @@ window.onload = function () {
                     break;
                     default: frame = 0;
                 }
+            } else if (sprite.dir == 4) {
+                switch (frame) {
+                    case 0: sprite.image.src = 'sprite-sword1.png';
+                            frame = 1;
+                            sprite.speed=0;
+                    break;
+                    case 1: sprite.image.src = 'sprite-sword2.png';
+                            frame = 2;
+                            sprite.speed=1;
+                    break;
+                    case 2: sprite.image.src = 'sprite-sword3.png';
+                            frame = 3;
+                            sprite.speed=2;
+                    break;
+                    case 3: sprite.image.src = 'sprite-sword4.png';
+                            frame = 4;
+                            sprite.speed=3;
+                    break;
+                    case 4: sprite.image.src = 'sprite-sword5.png';
+                            frame = 5;
+                            sprite.speed=2;
+                    break;
+                    case 5: sprite.image.src = 'sprite-sword6.png';
+                            frame = 6;
+                            sprite.speed=1;
+                    break;
+                    case 6: sprite.image.src = 'sprite-sword7.png';
+                            frame = 0;
+                            sprite.speed=0;
+                    break;
+                    default: frame = 0;
+                }
             }
             
         }
@@ -190,10 +222,10 @@ window.onload = function () {
         }
         if (sprite.cx > sprite.x) {
             sprite.x += 1 * sprite.speed;
-            sprite.dir = 1;
+            sprite.dir = 4;
         } else {
             sprite.x -= 1 * sprite.speed;
-            sprite.dir = 0;
+            sprite.dir = 4;
         }
     }
     function newPosY() {
@@ -204,10 +236,10 @@ window.onload = function () {
 
         if (sprite.cy > sprite.y) {
             sprite.y += 1 * sprite.speed;
-            sprite.dir = 2;
+            sprite.dir = 4;
         } else {
             sprite.y -= 1 * sprite.speed;
-            sprite.dir = 3;
+            sprite.dir = 4;
         }
     }
 
