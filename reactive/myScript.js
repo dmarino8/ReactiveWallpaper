@@ -1,16 +1,14 @@
 
 const sprite = {
     x: 500,
-    y:400,
+    y: 400,
     cx: 0,
     cy: 0,
-    px: 0,
-    py: 0,
-    angle: 0.5 * Math.PI,
-    dir : 0, //dir 0 = left, dir 1 = right
-    speed: 1,
+    dir: 0, //dir 0 = left, dir 1 = right
+    speed: 3,
     width: 30,
-    height: 30
+    height: 30,
+    xdone: false
 }
 
 window.onload = function () {
@@ -21,28 +19,41 @@ window.onload = function () {
 
     function update() {
         requestAnimationFrame(update);
-        newPos();
         ctx.clearRect(0, 0, width, height);
+        if (sprite.xdone == false) {
+            newPosX();
+        }
+        if ((sprite.cy != sprite.y) && (sprite.xdone == true)) {
+            newPosY();
+        }
         ctx.beginPath();
         ctx.arc(sprite.x, sprite.y, 10, 0, Math.PI * 2);
         ctx.fill();
     }
-    function newPos() {
-        sprite.x += sprite.speed * Math.sin(sprite.angle);
-        sprite.y -= sprite.speed * Math.cos(sprite.angle);
+
+    function newPosX() {
+        if (sprite.cx == sprite.x) {
+            sprite.xdone = true;
+            console.log("hello");
+        }
+        if (sprite.cx > sprite.x) {
+            sprite.x += 1  ;
+        } else {
+            sprite.x -= 1;
+        }
+    }
+    function newPosY() {
+        if (sprite.cy > sprite.y) {
+            sprite.y++;
+        } else {
+            sprite.y--;
+        }
     }
     update();
 
     document.body.addEventListener("click", function (e) {
-
-        sprite.px = sprite.cx;
-        sprite.py = sprite.cy;
+        sprite.xdone = false;
         sprite.cx = e.x;
         sprite.cy = e.y;
-
-        sprite.angle = (Math.abs(Math.atan((sprite.cy - sprite.y) / (sprite.cx - sprite.x))) * (180 / Math.PI));
-        
-        console.log(sprite.angle);
-
     })
 }
