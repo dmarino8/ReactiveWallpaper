@@ -1,17 +1,14 @@
 
 const sprite = {
-    x: 0,
-    y: 0,
-    px: 0,
-    py: 0,
-    dx: 0,
-    dy: 0,
+    x: 500,
+    y:400,
     cx: 0,
     cy: 0,
-    velx: 0,
-    vely: 0,
-    friction: 0.98,
-    speed: 10,
+    px: 0,
+    py: 0,
+    angle: 0.5 * Math.PI,
+    dir : 0, //dir 0 = left, dir 1 = right
+    speed: 1,
     width: 30,
     height: 30
 }
@@ -24,67 +21,28 @@ window.onload = function () {
 
     function update() {
         requestAnimationFrame(update);
-/*      
-        if (sprite.vely > -sprite.speed) {
-            sprite.vely--;
-        }
-        if (sprite.vely < sprite.speed) {
-            sprite.vely++;
-        }
-        if (sprite.velx < sprite.speed) {
-            sprite.velx++;
-        }
-        if (sprite.elx > -sprite.speed) {
-            sprite.velx--;
-        }
-*/
-
-        //the total should be 2 but needs to be split depending on the angle
-        sprite.velx += ((1 / sprite.speed) * sprite.dx);
-        sprite.vely += ((1 / sprite.speed) * sprite.dy);
-
-        //sprite.vely *= sprite.friction;
-        sprite.y += sprite.vely;
-        //sprite.velx *= sprite.friction;
-        sprite.x += sprite.velx;
-
-        if (sprite.x > sprite.cx) {
-            sprite.velx = 0;
-            sprite.vely = 0;
-        }
-
+        newPos();
         ctx.clearRect(0, 0, width, height);
         ctx.beginPath();
-        ctx.arc(sprite.x, sprite.y, 5, 0, Math.PI * 2);
+        ctx.arc(sprite.x, sprite.y, 10, 0, Math.PI * 2);
         ctx.fill();
     }
-
+    function newPos() {
+        sprite.x += sprite.speed * Math.sin(sprite.angle);
+        sprite.y -= sprite.speed * Math.cos(sprite.angle);
+    }
     update();
 
     document.body.addEventListener("click", function (e) {
+
         sprite.px = sprite.cx;
         sprite.py = sprite.cy;
         sprite.cx = e.x;
         sprite.cy = e.y;
 
-        //rate of change of dx and dy
+        sprite.angle = (Math.abs(Math.atan((sprite.cy - sprite.y) / (sprite.cx - sprite.x))) * (180 / Math.PI));
+        
+        console.log(sprite.angle);
 
-        /*
-        let tan = 0;
-        tan = Math.atan((sprite.cy - sprite.py) / (sprite.cx - sprite.px));
-        */
-
-        let slope = 0;
-        slope = (sprite.cy - sprite.py) / (sprite.cx - sprite.px);
-        console.log(slope);
-
-        sprite.dx = 1
-        sprite.dy = slope * 1;
-
-        //console.log(sprite.dx + " : dx");
-        //console.log(sprite.dy + " : dy");
-
-
-        //console.log(sprite.cx + " " + sprite.cy);
     })
 }
