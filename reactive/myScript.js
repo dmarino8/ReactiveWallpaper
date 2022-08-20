@@ -9,7 +9,7 @@ const sprite = {
     y: 400,
     cx: 500,
     cy: 400,
-    dir: 4, //dir 0 = left, dir 1 = right
+    dir: 1, //dir 0 = left, dir 1 = right
     speed: 1,
     width: 30,
     height: 30,
@@ -222,10 +222,10 @@ window.onload = function () {
         }
         if (sprite.cx > sprite.x) {
             sprite.x += 1 * sprite.speed;
-            sprite.dir = 4;
+            sprite.dir = 1;
         } else {
             sprite.x -= 1 * sprite.speed;
-            sprite.dir = 4;
+            sprite.dir = 0;
         }
     }
     function newPosY() {
@@ -236,10 +236,10 @@ window.onload = function () {
 
         if (sprite.cy > sprite.y) {
             sprite.y += 1 * sprite.speed;
-            sprite.dir = 4;
+            sprite.dir = 2;
         } else {
             sprite.y -= 1 * sprite.speed;
-            sprite.dir = 4;
+            sprite.dir = 3;
         }
     }
 
